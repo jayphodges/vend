@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914040805) do
+ActiveRecord::Schema.define(version: 20170914164252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,22 @@ ActiveRecord::Schema.define(version: 20170914040805) do
     t.index ["owner_id"], name: "index_machines_on_owner_id"
   end
 
+  create_table "machines_and_snacks", force: :cascade do |t|
+    t.bigint "Machines_id"
+    t.bigint "Snacks_id"
+    t.index ["Machines_id"], name: "index_machines_and_snacks_on_Machines_id"
+    t.index ["Snacks_id"], name: "index_machines_and_snacks_on_Snacks_id"
+  end
+
   create_table "owners", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "snacks", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "machines", "owners"
